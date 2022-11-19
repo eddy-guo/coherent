@@ -62,7 +62,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content="https://www.eddyguo.ca//ogimage.png"
+          content=""
         />
       </Head>
 
