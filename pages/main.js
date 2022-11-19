@@ -1,27 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import React, { useState } from "react";
 import styles from "../styles/Main.module.css";
 import ChatBoxes from "./chatboxes";
 import * as cohere_functions from '../scripts/cohere_functions.js'
 import { useRouter } from 'next/router';
-
-const testing_chat_msgs = [{
-  style: styles.leftmessage,
-  content: "This is a test message."
-}, {
-  style: styles.rightmessage,
-  content: "This is a second test message."
-
-}, {
-  style: styles.leftmessage,
-  content: "This is a third test message."
-
-}, {
-  style: styles.rightmessage,
-  content: "This is a fourth test message."
-
-}];
+import React, { useState, useEffect } from 'react'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function Main() {
   const [keywords, setKeywords] = useState("");
@@ -57,6 +41,20 @@ export default function Main() {
     }
   }, [keywords]);
 
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+  
+  useEffect(() => {
+    const support = () => { }
+    if (!browserSupportsSpeechRecognition) {
+      return <span>Browser does not support speech recognition.</span>;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <main className={styles.main}>
       <Head>
@@ -76,6 +74,10 @@ export default function Main() {
         />
 
         <input className={styles.button} type="image" src="/images/microphone.svg" />
+          placeholder="Insert text here"
+          defaultValue={transcript}
+        />
+        <input className={styles.button} type="image" src="/images/microphone.svg" onClick={SpeechRecognition.startListening} />
       </div>
     </main>
   );
