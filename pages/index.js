@@ -5,12 +5,15 @@ import styles from '../styles/Home.module.css';
 console.log(`${process.env.COHERE_API_KEY}`)
 const cohere = require('cohere-ai');
 cohere.init(`${process.env.COHERE_API_KEY}`);
+
 (async () => {
   const response = await cohere.generate({
-    prompt: 'Once upon a time in a magical land called',
+    prompt: 'Once upon a time in a magical land called'
   });
-  console.log(`Prediction: ${response.body.generations[0].text}`);
+  //console.log(`Prediction: ${response.body.generations[0].text}`);
+  console.log(response.body.generations?.[0].text)
 })();
+
 
 export default function Home() {
   return (
