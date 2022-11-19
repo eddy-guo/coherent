@@ -3,11 +3,6 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import * as cohere_functions from '../scripts/cohere_functions.js';
 
-(async () => {
-  const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.");
-  const response = await cohere_functions.create_prompts('','Any particular reason you want mexican food?', result);
-  console.log(response)
-})();
 
 
 export default function Home() {
