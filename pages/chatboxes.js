@@ -1,4 +1,4 @@
-import styles from "../styles/Main.module.css";
+/*import styles from "../styles/Main.module.css";
 
 
 export default function ChatBoxes({chat_messages}) {
@@ -13,4 +13,4 @@ export default function ChatBoxes({chat_messages}) {
             }
         </div>
     )
-}
+}*/
