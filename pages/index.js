@@ -2,8 +2,15 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from 'next/link';
 import styles from "../styles/Home.module.css";
+import React, { useState, useEffect } from 'react'
+
+import { getLocalStream } from "../scripts/microphone";
 
 export default function Home() {
+  useEffect(() => {
+    getLocalStream();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
