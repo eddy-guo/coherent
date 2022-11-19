@@ -30,12 +30,6 @@ export default function Main() {
   const cohere = require("cohere-ai");
   cohere.init(/*api key goes here*/);
 
-  async function func() {
-    const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.", cohere);
-    const response = await cohere_functions.create_prompts('', 'Any particular reason you want mexican food?', result, cohere);
-    console.log(response);
-  }
-
   const router = useRouter();
 
   const refreshData = () => {
