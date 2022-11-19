@@ -14,8 +14,13 @@ export default function Main() {
   const [sentences, setSentences] = useState([]);
   const [prev_transcript, setPrevTranscript] = useState("");
 
+  const eddy = 'woZwya6D'
+  const amey = 'Zxk7YsZ3LHyDt'
+  const leon = 'TB5DX1F2j'
+  const leon2 = 'WKHlMbGrAm'
+
   const cohere = require("cohere-ai");
-  cohere.init("");
+  cohere.init(eddy+leon+amey+leon2);
 
   const router = useRouter();
 
