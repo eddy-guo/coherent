@@ -13,7 +13,6 @@ export async function create_prompts(input_words, prev_message, conv_keywords) {
 
         if (input_words != '') {
             custom_prompt1 += `' given the words '${input_words.trim().replace(' ', ', ')}`
-            custom_prompt2 = `Create a sentence using the words '${input_words.trim().replace(' ', ', ')}'.`
         }
         if (conv_keywords != '') {
             custom_prompt1 += `, ${conv_keywords.trim()}`
