@@ -1,37 +1,18 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import * as cohere_functions from '../scripts/cohere_functions.js';
 
-const cohere = require("cohere-ai");
-cohere.init(`${process.env.COHERE_API_KEY}`);
-
-// generate example
 (async () => {
-  const response = await cohere.generate({
-    prompt: "Once upon a time in a magical land called",
-  });
-  //console.log(`Prediction: ${response.body.generations[0].text}`);
-  // console.log(response.body.generations?.[0].text);
+  const result = await cohere_functions.generate_response('bad','How was the party yesterday?','');
+  console.log(result)
 })();
 
-// generate sentence example
 (async () => {
-  const response = await cohere.generate({
-    prompt: "Write me a sentence relating to the words yesterday, party, great",
-    model: "command-xlarge-20221108"
-  });
-  console.log(response.body.generations?.[0].text);
+  const result = await cohere_functions.generate_response('okay','How was your day?','');
+  console.log(result)
 })();
 
-// genereate sentence response example
-(async () => {
-  const response = await cohere.generate({
-    prompt: "Respond to the sentence 'How was the party yesterday?' relating to the word 'bad'",
-    model: "command-xlarge-20221108",
-    num_generations: 5,
-  });
-  console.log(response.body.generations);
-})();
 
 export default function Home() {
   return (
