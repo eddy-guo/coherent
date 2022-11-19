@@ -13,6 +13,11 @@ cohere.init(`${process.env.COHERE_API_KEY}`);
 // })();
 
 
+(async () => {
+  const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.");
+})();
+
+
 
 (async () => {
   const result = await cohere_functions.create_prompts('not bad','How was last nights party?', '');

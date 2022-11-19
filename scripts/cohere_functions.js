@@ -83,3 +83,25 @@ export async function autocomplete_word(words, prev_message) {
     return words_arr.join(' ')
 }
 
+export async function extract_keywords(previous_messages) {
+    var ex_prompt = `This bot finds the most important subject from a conversation.
+    Conversation: "What do you want to grab for lunch? I'm down for some burgers or a pizza. I could go for some pasta.".
+    Important subjects: "food".
+    Conversation: "How was your day? My day was not too bad, what about you? My day was awful - I got fired from work.".
+    Important subjects: "bad day".
+    Conversation: "Are you ready to leave soon? One second, I'm putting my shoes on. Hurry up!".
+    Important subjects: "leaving"
+    Conversation: "What are you doing tonight? I'm going out with some friends to a bar, what about you? I'm probably going to take it easy.".
+    Important subjects: "plans tonight"
+    Conversation: "${previous_messages}".
+    Important subjects: "`
+
+    const response = await cohere.generate({
+        prompt: ex_prompt,
+        model: 'xlarge',
+        stop_sequences: ['"'],
+        temperature: 0.75,
+        num_generations: 2
+    })
+    console.log(response.body.generations)
+}
