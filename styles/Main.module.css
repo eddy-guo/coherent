@@ -1,0 +1,55 @@
+.main {
+  width: 400px;
+  height: 600px;
+  margin: auto;
+  position: relative;
+  align-items: center;
+  background-color: grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin: 0;
+  padding: 20px;
+}
+
+.messages {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftmessage {
+    align-self: start;
+}
+
+.rightmessage {
+    align-self: end;
+}
+
+.lefttext, .righttext {
+    margin: 0;
+    border-radius: 25px;
+    background: #73AD21;
+    padding: 5px;
+}
+
+.inputarea {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 0;
+}
+
+.button {
+  width: 30px;
+  height: 30px;
+  border: solid black 1px;
+}
+
+.input {
+  background-color: white;
+  width: 300px;
+  color: black;
+}
