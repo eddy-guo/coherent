@@ -1,19 +1,37 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from '../styles/Home.module.css';
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
 
-console.log(`${process.env.COHERE_API_KEY}`)
-const cohere = require('cohere-ai');
+const cohere = require("cohere-ai");
 cohere.init(`${process.env.COHERE_API_KEY}`);
 
+// generate example
 (async () => {
   const response = await cohere.generate({
-    prompt: 'Once upon a time in a magical land called'
+    prompt: "Once upon a time in a magical land called",
   });
   //console.log(`Prediction: ${response.body.generations[0].text}`);
-  console.log(response.body.generations?.[0].text)
+  // console.log(response.body.generations?.[0].text);
 })();
 
+// generate sentence example
+(async () => {
+  const response = await cohere.generate({
+    prompt: "Write me a sentence relating to the words yesterday, party, great",
+    model: "command-xlarge-20221108"
+  });
+  console.log(response.body.generations?.[0].text);
+})();
+
+// genereate sentence response example
+(async () => {
+  const response = await cohere.generate({
+    prompt: "Respond to the sentence 'How was the party yesterday?' relating to the word 'bad'",
+    model: "command-xlarge-20221108",
+    num_generations: 5,
+  });
+  console.log(response.body.generations);
+})();
 
 export default function Home() {
   return (
@@ -30,7 +48,7 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -47,8 +65,7 @@ export default function Home() {
 
           <a
             href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
+            className={styles.card}>
             <h2>Examples &rarr;</h2>
             <p>Discover and deploy boilerplate example Next.js projects.</p>
           </a>
@@ -57,8 +74,7 @@ export default function Home() {
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             target="_blank"
             rel="noopener noreferrer"
-            className={styles.card}
-          >
+            className={styles.card}>
             <h2>Deploy &rarr;</h2>
             <p>
               Instantly deploy your Next.js site to a public URL with Vercel.
@@ -71,9 +87,8 @@ export default function Home() {
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
+          rel="noopener noreferrer">
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
