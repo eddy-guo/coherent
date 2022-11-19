@@ -6,6 +6,7 @@ import * as cohere_functions from '../scripts/cohere_functions.js';
 import React, { useState, useEffect } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
+
 export default function Home() {
   const {
     transcript,

@@ -2,9 +2,10 @@ const cohere = require("cohere-ai");
 cohere.init(`${process.env.COHERE_API_KEY}`);
 
 export async function create_prompts(input_words, prev_message, conv_keywords) {
+    console.log(input_words)
     var custom_prompt1 = '';
     var custom_prompt2 = '';
-    if (input_words == '' && prev_message == '' && conv_summary == '') {
+    if (input_words == '' && prev_message == '' && conv_keywords == '') {
         return []
     }
     
@@ -25,6 +26,7 @@ export async function create_prompts(input_words, prev_message, conv_keywords) {
     var out_arr = [];
     
     let response = await generate_response(custom_prompt1, 3);
+    console.log(response)
 
     for (let i = 0; i < response.body.generations?.length; i++) {
         if (!out_arr.includes(response.body.generations?.[i].text.trim())) {
@@ -32,6 +34,7 @@ export async function create_prompts(input_words, prev_message, conv_keywords) {
         }
     }
 
+    console.log(out_arr)
 
     return out_arr
 

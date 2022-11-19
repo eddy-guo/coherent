@@ -10,7 +10,6 @@ export default function ChatBoxes({chat_messages}) {
                         <div className={info.style} key={index}><p>{info.content}</p></div>
                     )
                 })
-            
             }
         </div>
     )
