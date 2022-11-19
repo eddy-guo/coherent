@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Main.module.css";
-import ChatBoxes from "./chatboxes";
+// import ChatBoxes from "./chatboxes";
 import * as cohere_functions from "../scripts/cohere_functions.js";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
