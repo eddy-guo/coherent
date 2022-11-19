@@ -74,22 +74,22 @@ export default function Home() {
           />
           <ul className={styles.headertext}>
             <li>
-              <a href="https://www.eddyguo.ca/" target="_blank">
+              <a href="https://www.eddyguo.ca/" target="_blank" rel="noreferrer">
                 Contact
               </a>
             </li>
             <li>
-              <a href="https://github.com/eddy-guo/coherent" target="_blank">
+              <a href="https://github.com/eddy-guo/coherent" target="_blank" rel="noreferrer">
                 Source Code (GitHub)
               </a>
             </li>
             <li>
-              <a href="https://twitter.com/wetpeeker" target="_blank">
+              <a href="https://twitter.com/wetpeeker" target="_blank" rel="noreferrer">
                 Twitter
               </a>
             </li>
             <li>
-              <a href="https://devpost.com/" target="_blank">
+              <a href="https://devpost.com/" target="_blank" rel="noreferrer">
                 Devpost
               </a>
             </li>
