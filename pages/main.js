@@ -97,6 +97,21 @@ export default function Main() {
           onClick={SpeechRecognition.startListening}
         />
       </div>
+
+      <div>
+          <ul>
+            {sentences.length > 0 ? (
+              sentences.map((sentence) => (
+                <li key={sentence}>
+                  <p>{sentence}</p>
+                </li>
+              ))
+            ): (
+              <li><p>No results/loading</p></li>
+            )}
+          </ul>
+
+      </div>
     </main>
   );
 }
