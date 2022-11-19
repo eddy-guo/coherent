@@ -8,10 +8,6 @@ export function getLocalStream() {
     });
 }
 
-export function startMicrophone() {
-
-}
-
 /*
 navigator.permissions.query({ name: 'microphone' }).then((result) => {
  if (result.state === 'granted') {
