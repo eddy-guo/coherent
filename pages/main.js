@@ -12,6 +12,7 @@ import SpeechRecognition, {
 export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]);
+  const [torv, setTorv] = useState(true);
   const [prev_transcript, setPrevTranscript] = useState("");
 
   const eddy = 'woZwya6D'
@@ -20,7 +21,7 @@ export default function Main() {
   const leon2 = 'WKHlMbGrAm'
 
   const cohere = require("cohere-ai");
-  cohere.init(eddy+leon+amey+leon2);
+  cohere.init(eddy + leon + amey + leon2);
 
   const router = useRouter();
 
@@ -67,7 +68,7 @@ export default function Main() {
   }, [transcript]);
 
   useEffect(() => {
-    const support = () => {};
+    const support = () => { };
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser does not support speech recognition.</span>;
     }
@@ -81,20 +82,40 @@ export default function Main() {
       <h1 className={styles.header}>Co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
       <div className={styles.inputarea}>
+        {torv ?
+          <div id="textfield">
+            <input
+              className={styles.input}
+              type="text"
+              id="input"
+              name="input-text"
+              placeholder="Input your text here"
+              value={keywords}
+              onChange={onTBChange}
+            />
+          </div>
+          :
+          <div id="voicefield">
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Press the mic to speak"
+              value={transcript}
+            />
+          </div>
+        }
         <input
-          className={styles.input}
-          type="text"
-          id="input"
-          name="input-text"
-          placeholder="Input your text here"
-          value={keywords}
-          onChange={onTBChange}
+          className={styles.button}
+          type="image"
+          src="/images/microphone.svg"
+          onClick={/* submit */() => { SpeechRecognition.startListening; setTorv(!torv); }}
         />
         <input
           className={styles.button}
           type="image"
           src="/images/microphone.svg"
           onClick={SpeechRecognition.startListening}
+          disabled={torv}
         />
       </div>
     </main>
