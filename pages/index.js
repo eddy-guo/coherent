@@ -3,25 +3,10 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import * as cohere_functions from '../scripts/cohere_functions.js';
 
-const cohere = require("cohere-ai");
-cohere.init(`${process.env.COHERE_API_KEY}`);
-
-// (async () => {
-//   const completed_words = await cohere_functions.autocomplete_word('not fun i dont smoke', 'How was the party yesterday?');
-//   const result = await cohere_functions.generate_response('not fun dont smoke','How was the party yesterday?', '');
-//   console.log(result)
-// })();
-
-
 (async () => {
   const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.");
-})();
-
-
-
-(async () => {
-  const result = await cohere_functions.create_prompts('not bad','How was last nights party?', '');
-  console.log(result)
+  const response = await cohere_functions.create_prompts('','Any particular reason you want mexican food?', result);
+  console.log(response)
 })();
 
 

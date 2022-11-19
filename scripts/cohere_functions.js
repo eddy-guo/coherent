@@ -1,7 +1,7 @@
 const cohere = require("cohere-ai");
 cohere.init(`${process.env.COHERE_API_KEY}`);
 
-export async function create_prompts(input_words, prev_message, conv_summary) {
+export async function create_prompts(input_words, prev_message, conv_keywords) {
     var custom_prompt1 = '';
     var custom_prompt2 = '';
     if (input_words == '' && prev_message == '' && conv_summary == '') {
@@ -9,46 +9,30 @@ export async function create_prompts(input_words, prev_message, conv_summary) {
     }
     
     if (prev_message != '') {
-        custom_prompt1 = `Respond to the sentence '${prev_message}'`
+        custom_prompt1 = `Respond to the sentence '${prev_message}`
 
         if (input_words != '') {
-            custom_prompt1 += ` including the words '${input_words.trim().replace(' ', ', ')}'`
+            custom_prompt1 += `' given the words '${input_words.trim().replace(' ', ', ')}`
             custom_prompt2 = `Create a sentence using the words '${input_words.trim().replace(' ', ', ')}'.`
         }
-        if (conv_summary != '') {
-            custom_prompt1 += ` given that ${conv_summary}`
+        if (conv_keywords != '') {
+            custom_prompt1 += `, ${conv_keywords.trim()}`
         }
-        custom_prompt1 += '.'
+        custom_prompt1 += '\'.'
     } else {
         custom_prompt1 = `Create a sentence using the words '${input_words.trim().replace(' ', ', ')}'.`
     }
 
     var out_arr = [];
     
-    if (custom_prompt2 != '') {
-        let [response1, response2] = await Promise.allSettled([generate_response(custom_prompt1, 2), generate_response(custom_prompt2, 1)]);
-        console.log(response1.value.body.generations);
-        console.log(response2.value.body.generations);
+    let response = await generate_response(custom_prompt1, 3);
 
-        for (let i = 0; i < response1.value.body?.generations?.length; i++) {
-            if (!out_arr.includes(response1.value.body.generations?.[i].text.trim())) {
-                out_arr.push(response1.value.body.generations?.[i].text.trim());
-            }
-        }
-        for (let i = 0; i < response2.value.body?.generations?.length; i++) {
-            if (!out_arr.includes(response2.value.body.generations?.[i].text.trim())) {
-                out_arr.push(response2.value.body.generations?.[i].text.trim());
-            }
-        }
-    } else {
-        let response = await generate_response(custom_prompt1, 3);
-
-        for (let i = 0; i < response.body.generations?.length; i++) {
-            if (!out_arr.includes(response.body.generations?.[i].text.trim())) {
-                out_arr.push(response.body.generations?.[i].text.trim());
-            }
+    for (let i = 0; i < response.body.generations?.length; i++) {
+        if (!out_arr.includes(response.body.generations?.[i].text.trim())) {
+            out_arr.push(response.body.generations?.[i].text.trim());
         }
     }
+
 
     return out_arr
 
@@ -59,7 +43,7 @@ async function generate_response(prompt, generations) {
         prompt: prompt,
         model: "command-xlarge-20221108",
         num_generations: generations,
-        temperature: 0.5,
+        temperature: 1.5,
         frequency_penalty: 0.0,
     });
 
@@ -85,23 +69,36 @@ export async function autocomplete_word(words, prev_message) {
 
 export async function extract_keywords(previous_messages) {
     var ex_prompt = `This bot finds the most important subject from a conversation.
-    Conversation: "What do you want to grab for lunch? I'm down for some burgers or a pizza. I could go for some pasta.".
+    Conversation: "What do you want to grab for lunch? I'm down for some burgers or a pizza. I want some pasta. Some fries would be nice.".
     Important subjects: "food".
-    Conversation: "How was your day? My day was not too bad, what about you? My day was awful - I got fired from work.".
+    Conversation: "How was your day? My day was awful - I got fired from work. My dog chewed up my socks. Today is terrible!".
     Important subjects: "bad day".
-    Conversation: "Are you ready to leave soon? One second, I'm putting my shoes on. Hurry up!".
-    Important subjects: "leaving"
     Conversation: "What are you doing tonight? I'm going out with some friends to a bar, what about you? I'm probably going to take it easy.".
-    Important subjects: "plans tonight"
+    Important subjects: "plans".
+    Conversation: "How was work today? It was pretty busy today, lots of stuff to do. I might take some time off soon."
+    Important subjects: "work".
     Conversation: "${previous_messages}".
     Important subjects: "`
 
     const response = await cohere.generate({
         prompt: ex_prompt,
-        model: 'xlarge',
+        model: 'large',
         stop_sequences: ['"'],
-        temperature: 0.75,
+        temperature: 0.9,
         num_generations: 2
     })
-    console.log(response.body.generations)
+    let out_arr = []
+
+    for (let i = 0; i < response.body.generations?.length; i++) {
+        for (var c of response.body.generations?.[i].text.replace('"', '').trim().split(' ')) {
+            if (!out_arr.includes(c.toLowerCase())) {
+                out_arr.push(c.toLowerCase())
+            }
+        }
+    }
+
+    console.log(out_arr.join(' '))
+
+    return out_arr.join(', ')
+
 }
