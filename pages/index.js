@@ -29,7 +29,7 @@ export default function Home() {
         />
         {/* Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="" />
+        <meta property="og:url" content="https://www.coherentapp.tech/" />
         <meta
           property="og:title"
           content="Co:herent - making conversation accessible to all"
@@ -38,10 +38,10 @@ export default function Home() {
           property="og:description"
           content="Digital service that brings accessibility to everyday communcation."
         />
-        <meta property="og:image" content="" />
+        <meta property="og:image" content="https://www.coherentapp.tech//meta-img.png" />
         {/* Twitter */}
-        <meta property="twitter:card" content="" />
-        <meta property="twitter:url" content="" />
+        <meta property="twitter:card" content="https://www.coherentapp.tech//meta-img.png" />
+        <meta property="twitter:url" content="https://www.coherentapp.tech/" />
         <meta
           property="twitter:title"
           content="Co:herent - making conversation accessible to all"
@@ -52,7 +52,7 @@ export default function Home() {
         />
         <meta
           property="twitter:image"
-          content=""
+          content="https://www.coherentapp.tech//meta-img.png"
         />
       </Head>
 
