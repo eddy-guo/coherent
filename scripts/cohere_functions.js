@@ -1,5 +1,4 @@
-const cohere = require("cohere-ai");
-cohere.init(`${process.env.COHERE_API_KEY}`);
+export const cohere = require("cohere-ai");
 
 export async function create_prompts(input_words, prev_message, conv_keywords) {
     console.log(input_words)

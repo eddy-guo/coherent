@@ -6,11 +6,7 @@ import ChatBoxes from "./chatboxes";
 import * as cohere_functions from '../scripts/cohere_functions.js'
 
 
-(async () => {
-  const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.");
-  const response = await cohere_functions.create_prompts('','Any particular reason you want mexican food?', result);
-  console.log(response)
-})();
+
 
 const testing_chat_msgs = [{
   style: styles.leftmessage,
@@ -39,6 +35,10 @@ export default function Main() {
     setKeywords(value);
     //console.log(value);
   }
+  
+  React.useEffect(() => {
+    cohere_functions.cohere.init(`${process.env.COHERE_API_KEY}`);
+  }, []);
 
   React.useEffect(() => {
 
