@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     const support = () => { }
     if (!browserSupportsSpeechRecognition) {
-      return <span>Browser doesn't support speech recognition.</span>;
+      return <span>Browser does not support speech recognition.</span>;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
