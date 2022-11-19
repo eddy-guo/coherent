@@ -4,22 +4,20 @@ import React, { useState } from "react";
 import styles from "../styles/Main.module.css";
 import ChatBoxes from "./chatboxes";
 import * as cohere_functions from '../scripts/cohere_functions.js'
-
-
-
+import { useRouter } from 'next/router';
 
 const testing_chat_msgs = [{
   style: styles.leftmessage,
   content: "This is a test message."
-},{
+}, {
   style: styles.rightmessage,
   content: "This is a second test message."
 
-},{
+}, {
   style: styles.leftmessage,
   content: "This is a third test message."
 
-},{
+}, {
   style: styles.rightmessage,
   content: "This is a fourth test message."
 
@@ -29,25 +27,35 @@ export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]);
 
+  const cohere = require("cohere-ai");
+  cohere.init(/*api key goes here*/);
+
+  async function func() {
+    const result = await cohere_functions.extract_keywords("Lets go to a restaurant tonight. Which restaurant do you want to go to? I want to get some mexican food.", cohere);
+    const response = await cohere_functions.create_prompts('', 'Any particular reason you want mexican food?', result, cohere);
+    console.log(response);
+  }
+
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
+
   const onTBChange = (e) => {
-    const {value} = e.target;
+    const { value } = e.target;
 
     setKeywords(value);
     //console.log(value);
   }
-  
-  React.useEffect(() => {
-    cohere_functions.cohere.init(`${process.env.COHERE_API_KEY}`);
-  }, []);
 
   React.useEffect(() => {
-
     async function update_cohere() {
       console.log(keywords)
-      const response = await cohere_functions.create_prompts(keywords, '', '');
+      const response = await cohere_functions.create_prompts(keywords, '', '', cohere);
       setSentences(response);
       console.log(sentences)
-      
+
     }
 
     if (keywords != '') {
@@ -55,11 +63,10 @@ export default function Main() {
     }
   }, [keywords]);
 
-
   return (
     <main className={styles.main}>
       <Head>
-      <title>Co:herent - Main</title>
+        <title>Co:herent - Main</title>
       </Head>
       <h1 className={styles.header}>Co:herent</h1>
       <ChatBoxes chat_messages={testing_chat_msgs} />
@@ -73,7 +80,7 @@ export default function Main() {
           value={keywords}
           onChange={onTBChange}
         />
-        
+
         <input className={styles.button} type="image" src="/images/microphone.svg" />
       </div>
     </main>
