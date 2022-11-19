@@ -10,6 +10,14 @@ export default function Main() {
     resetTranscript,
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
+  
+  useEffect(() => {
+    const support = () => { }
+    if (!browserSupportsSpeechRecognition) {
+      return <span>Browser does not support speech recognition.</span>;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <main className={styles.main}>
       <Head>
