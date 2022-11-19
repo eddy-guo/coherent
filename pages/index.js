@@ -1,6 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import React, { useState, useEffect } from 'react'
+
+import { getLocalStream } from "../scripts/microphone";
 
 const cohere = require("cohere-ai");
 cohere.init(`${process.env.COHERE_API_KEY}`);
@@ -34,6 +37,10 @@ cohere.init(`${process.env.COHERE_API_KEY}`);
 })();
 
 export default function Home() {
+  useEffect(() => {
+    getLocalStream();
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
