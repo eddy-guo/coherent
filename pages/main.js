@@ -45,11 +45,11 @@ export default function Main() {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-  
+
   useEffect(() => {
-    const support = () => { }
+    const support = () => {};
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser does not support speech recognition.</span>;
     }
@@ -77,7 +77,12 @@ export default function Main() {
           placeholder="Insert text here"
           defaultValue={transcript}
         />
-        <input className={styles.button} type="image" src="/images/microphone.svg" onClick={SpeechRecognition.startListening} />
+        <input
+          className={styles.button}
+          type="image"
+          src="/images/microphone.svg"
+          onClick={SpeechRecognition.startListening}
+        />
       </div>
     </main>
   );
