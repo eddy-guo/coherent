@@ -3,13 +3,19 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import * as cohere_functions from '../scripts/cohere_functions.js';
 
-(async () => {
-  const result = await cohere_functions.generate_response('bad','How was the party yesterday?','');
-  console.log(result)
-})();
+const cohere = require("cohere-ai");
+cohere.init(`${process.env.COHERE_API_KEY}`);
+
+// (async () => {
+//   const completed_words = await cohere_functions.autocomplete_word('not fun i dont smoke', 'How was the party yesterday?');
+//   const result = await cohere_functions.generate_response('not fun dont smoke','How was the party yesterday?', '');
+//   console.log(result)
+// })();
+
+
 
 (async () => {
-  const result = await cohere_functions.generate_response('okay','How was your day?','');
+  const result = await cohere_functions.create_prompts('not bad','How was last nights party?', '');
   console.log(result)
 })();
 
