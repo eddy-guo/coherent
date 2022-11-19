@@ -1,19 +1,19 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Main.module.css";
-import React, { useState, useEffect } from 'react'
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import React, { useState, useEffect } from "react";
+import SpeechRecognition, { useSpeechRecognition, } from "react-speech-recognition";
 
 export default function Main() {
   const {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-  
+
   useEffect(() => {
-    const support = () => { }
+    const support = () => {};
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser does not support speech recognition.</span>;
     }
@@ -22,20 +22,8 @@ export default function Main() {
   return (
     <main className={styles.main}>
       <Head>
-      <title>Co:herent - Main</title>
+        <title>Co:herent - Main</title>
       </Head>
-      <h1 className={styles.header}>Co:herent</h1>
-      <div className={styles.messages}>
-      {/* this should populate on its own when messages are sent (left, right, then left etc) */}
-      <div className={styles.leftmessage}><p className={styles.lefttext}>temporary message</p></div>
-      <div className={styles.rightmessage}><p className={styles.righttext}>temporary message</p></div>
-      <div className={styles.leftmessage}><p className={styles.lefttext}>temporary message</p></div>
-      <div className={styles.rightmessage}><p className={styles.righttext}>temporary message</p></div>
-      <div className={styles.leftmessage}><p className={styles.lefttext}>temporary message</p></div>
-      <div className={styles.rightmessage}><p className={styles.righttext}>temporary message</p></div>
-      <div className={styles.leftmessage}><p className={styles.lefttext}>temporary message</p></div>
-      <div className={styles.rightmessage}><p className={styles.righttext}>temporary message</p></div>
-      </div>
       <div className={styles.inputarea}>
         <input
           className={styles.input}
@@ -45,7 +33,12 @@ export default function Main() {
           placeholder="Insert text here"
           defaultValue={transcript}
         />
-        <input className={styles.button} type="image" src="/images/microphone.svg" onClick={SpeechRecognition.startListening} />
+        <input
+          className={styles.button}
+          type="image"
+          src="/images/microphone.svg"
+          onClick={SpeechRecognition.startListening}
+        />
       </div>
     </main>
   );
