@@ -28,6 +28,10 @@
   flex-grow: 1;
 }
 
+.heading {
+  display: flex;
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
@@ -40,7 +44,7 @@
 }
 
 .title {
-  margin: 0;
+  margin: auto;
   line-height: 1.15;
   font-size: 4rem;
 }
