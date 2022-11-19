@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import * as cohere_functions from "../scripts/cohere_functions.js";
 import React, { useState, useEffect } from "react";
 
+
 export default function Home() {
   useEffect(() => {
     const support = () => {};

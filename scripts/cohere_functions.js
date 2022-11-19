@@ -1,13 +1,11 @@
-const cohere = require("cohere-ai");
-cohere.init(`${process.env.COHERE_API_KEY}`);
-
-export async function create_prompts(input_words, prev_message, conv_keywords) {
+export async function create_prompts(input_words, prev_message, conv_keywords, cohere) {
+    console.log(input_words)
     var custom_prompt1 = '';
     var custom_prompt2 = '';
-    if (input_words == '' && prev_message == '' && conv_summary == '') {
+    if (input_words == '' && prev_message == '' && conv_keywords == '') {
         return []
     }
-    
+
     if (prev_message != '') {
         custom_prompt1 = `Respond to the sentence '${prev_message}`
 
@@ -23,8 +21,9 @@ export async function create_prompts(input_words, prev_message, conv_keywords) {
     }
 
     var out_arr = [];
-    
-    let response = await generate_response(custom_prompt1, 3);
+
+    let response = await generate_response(custom_prompt1, 3, cohere);
+    console.log(response)
 
     for (let i = 0; i < response.body.generations?.length; i++) {
         if (!out_arr.includes(response.body.generations?.[i].text.trim())) {
@@ -32,12 +31,13 @@ export async function create_prompts(input_words, prev_message, conv_keywords) {
         }
     }
 
+    console.log(out_arr)
 
     return out_arr
 
 }
 
-async function generate_response(prompt, generations) {
+async function generate_response(prompt, generations, cohere) {
     const response = await cohere.generate({
         prompt: prompt,
         model: "command-xlarge-20221108",
@@ -49,7 +49,7 @@ async function generate_response(prompt, generations) {
     return response
 }
 
-export async function autocomplete_word(words, prev_message) { 
+export async function autocomplete_word(words, prev_message, cohere) {
     let words_arr = words.split(' ')
     let incomplete_word = words_arr.pop()
 
@@ -66,7 +66,7 @@ export async function autocomplete_word(words, prev_message) {
     return words_arr.join(' ')
 }
 
-export async function extract_keywords(previous_messages) {
+export async function extract_keywords(previous_messages, cohere) {
     var ex_prompt = `This bot finds the most important subject from a conversation.
     Conversation: "What do you want to grab for lunch? I'm down for some burgers or a pizza. I want some pasta. Some fries would be nice.".
     Important subjects: "food".
