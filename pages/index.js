@@ -4,21 +4,11 @@ import Link from 'next/link';
 import styles from "../styles/Home.module.css";
 import * as cohere_functions from '../scripts/cohere_functions.js';
 import React, { useState, useEffect } from 'react'
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function Home() {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-
   useEffect(() => {
     const support = () => { }
-    if (!browserSupportsSpeechRecognition) {
-      return <span>Browser does not support speech recognition.</span>;
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,8 +70,6 @@ export default function Home() {
         </div>
         <div>
           <Link href="/main">Continue</Link>
-          <button onClick={SpeechRecognition.startListening}>start</button>
-          <p style={{ color: 'red' }}>{transcript}</p>
         </div>
       </main>
     </div>
