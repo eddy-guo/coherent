@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../styles/Main.module.css";
 import React, { useState, useEffect } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+
 export default function Main() {
   const {
     transcript,
