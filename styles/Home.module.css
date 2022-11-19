@@ -1,7 +1,3 @@
-.container {
-  /* padding: 0 2rem; */
-}
-
 .main {
   min-height: 100vh;
   flex: 1;
@@ -48,6 +44,10 @@
   margin-top: 20px;
   font-family: "Quicksand";
   font-size: 20px;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 0.1em;
 }
 
 .heading {
@@ -69,7 +69,7 @@
 .description {
   font-family: "Quicksand";
   font-size: 20px;
-  width: 700px;
+  width: 800px;
   text-align: center;
   line-height: 1.5;
 }

@@ -14,7 +14,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'></link>
+      <link
+        href="https://fonts.googleapis.com/css?family=Quicksand"
+        rel="stylesheet"></link>
       <Head>
         <title>Co:herent</title>
         <link rel="icon" href="/images/coherent-favicon.png" />
@@ -65,26 +67,36 @@ export default function Home() {
 
       <main className={styles.main}>
         <div className={styles.header}>
-          <Image
-            className={styles.image}
-            src="/images/header-img.png"
-            alt="logo"
-            width="333"
-            height="74"
-          />
+          <Link className={styles.image} href="/">
+            <Image
+              src="/images/header-img.png"
+              alt="logo"
+              width="333"
+              height="74"
+            />
+          </Link>
           <ul className={styles.headertext}>
             <li>
-              <a href="https://www.eddyguo.ca/" target="_blank" rel="noreferrer">
+              <a
+                href="https://www.eddyguo.ca/"
+                target="_blank"
+                rel="noreferrer">
                 Contact
               </a>
             </li>
             <li>
-              <a href="https://github.com/eddy-guo/coherent" target="_blank" rel="noreferrer">
+              <a
+                href="https://github.com/eddy-guo/coherent"
+                target="_blank"
+                rel="noreferrer">
                 Source Code (GitHub)
               </a>
             </li>
             <li>
-              <a href="https://twitter.com/wetpeeker" target="_blank" rel="noreferrer">
+              <a
+                href="https://twitter.com/wetpeeker"
+                target="_blank"
+                rel="noreferrer">
                 Twitter
               </a>
             </li>
@@ -104,7 +116,7 @@ export default function Home() {
         </div>
         <span className={styles.description}>
           Co:herent is a digital service that brings accessibility to
-          interpersonal conversation with smealess adaptability to everyday use,
+          interpersonal conversation with seamless adaptability to everyday use,
           built for an inclusive future.
         </span>
         <Link href="/main">
