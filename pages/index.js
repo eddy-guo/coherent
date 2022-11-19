@@ -1,19 +1,20 @@
 import Head from "next/head";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
-import * as cohere_functions from '../scripts/cohere_functions.js';
-import React, { useState, useEffect } from 'react'
+import * as cohere_functions from "../scripts/cohere_functions.js";
+import React, { useState, useEffect } from "react";
 
 export default function Home() {
   useEffect(() => {
-    const support = () => { }
+    const support = () => {};
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className={styles.container}>
+      <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'></link>
       <Head>
         <title>Co:herent</title>
         <link rel="icon" href="/images/coherent-favicon.png" />
@@ -38,9 +39,15 @@ export default function Home() {
           property="og:description"
           content="Digital service that brings accessibility to everyday communcation."
         />
-        <meta property="og:image" content="https://www.coherentapp.tech//meta-img.png" />
+        <meta
+          property="og:image"
+          content="https://www.coherentapp.tech//meta-img.png"
+        />
         {/* Twitter */}
-        <meta property="twitter:card" content="https://www.coherentapp.tech//meta-img.png" />
+        <meta
+          property="twitter:card"
+          content="https://www.coherentapp.tech//meta-img.png"
+        />
         <meta property="twitter:url" content="https://www.coherentapp.tech/" />
         <meta
           property="twitter:title"
@@ -57,20 +64,52 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <div className={styles.header}>
+          <Image
+            className={styles.image}
+            src="/images/header-img.png"
+            alt="logo"
+            width="333"
+            height="74"
+          />
+          <ul className={styles.headertext}>
+            <li>
+              <a href="https://www.eddyguo.ca/" target="_blank">
+                Contact
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/eddy-guo/coherent" target="_blank">
+                Source Code (GitHub)
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com/wetpeeker" target="_blank">
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="https://devpost.com/" target="_blank">
+                Devpost
+              </a>
+            </li>
+          </ul>
+        </div>
+        <span className={styles.welcome}>WELCOME TO CO:HERENT</span>
         <div className={styles.heading}>
-          <h1 className={styles.title}>Co:herent</h1>
-          <div>
-            <Image
-              src="/images/logo-no-background.png"
-              alt="logo"
-              width="100"
-              height="100"
-            />
-          </div>
+          <h1 className={styles.title}>
+            Bringing <span className={styles.highlight}>accessibility</span> to{" "}
+            <span className={styles.highlight}>communcation.</span>
+          </h1>
         </div>
-        <div>
-          <Link href="/main">Continue</Link>
-        </div>
+        <span className={styles.description}>
+          Co:herent is a digital service that brings accessibility to
+          interpersonal conversation with smealess adaptability to everyday use,
+          built for an inclusive future.
+        </span>
+        <Link href="/main">
+          <button className={styles.continue}>Continue to App</button>
+        </Link>
       </main>
     </div>
   );
