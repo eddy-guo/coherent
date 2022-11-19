@@ -1,8 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Main.module.css";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function Main() {
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
   return (
     <main className={styles.main}>
       <Head>
@@ -26,9 +33,9 @@ export default function Main() {
           type="text"
           id="input"
           name="input-text"
-          placeholder="Input your text here"
+          defaultValue={transcript}
         />
-        <input className={styles.button} type="image" src="/images/microphone.svg" />
+        <input className={styles.button} type="image" src="/images/microphone.svg" onClick={SpeechRecognition.startListening} />
       </div>
     </main>
   );

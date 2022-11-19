@@ -7,13 +7,6 @@ import React, { useState, useEffect } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function Home() {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition
-  } = useSpeechRecognition();
-
   useEffect(() => {
     const support = () => { }
     if (!browserSupportsSpeechRecognition) {
@@ -80,8 +73,6 @@ export default function Home() {
         </div>
         <div>
           <Link href="/main">Continue</Link>
-          <button onClick={SpeechRecognition.startListening}>start</button>
-          <p style={{ color: 'red' }}>{transcript}</p>
         </div>
       </main>
     </div>
