@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Main.module.css";
+import React, { useState, useEffect } from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export default function Main() {
@@ -41,6 +42,7 @@ export default function Main() {
           type="text"
           id="input"
           name="input-text"
+          placeholder="Insert text here"
           defaultValue={transcript}
         />
         <input className={styles.button} type="image" src="/images/microphone.svg" onClick={SpeechRecognition.startListening} />
