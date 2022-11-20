@@ -40,7 +40,7 @@ export default function Main() {
     const { value } = e.target;
 
     setKeywords(value);
-    setTorv(true)
+    setTorv(true);
     //console.log(value);
   };
 
@@ -52,10 +52,9 @@ export default function Main() {
   } = useSpeechRecognition();
 
   React.useEffect(() => {
-    setKeywords(transcript)
-    setTorv(false)
-
-  }, [transcript])
+    setKeywords(transcript);
+    setTorv(false);
+  }, [transcript]);
 
   React.useEffect(() => {
     async function update_cohere() {
@@ -137,36 +136,55 @@ export default function Main() {
     }
   }
   return (
-    <main className={styles.main}>
-      <Head>
-        <title>Co:herent - Main</title>
-      </Head>
-      <h1 className={styles.header}>co:herent</h1>
-      {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
-      <div className={styles.messages}>
-        <ul>{lst.length > 0 && lst.map((item) => {
-          if (item.side == 'left') {
-            return (<div className={styles.leftmessage} key={item.id} onClick={() => speak({ text: item.content })}><p className={styles.lefttext}>{item.content}</p></div>)
-          } else {
-            return (<div className={styles.rightmessage} key={item.id} onClick={() => speak({ text: item.content })}><p className={styles.righttext}>{item.content}</p></div>)
-          }
-
-        })}</ul>
-      </div>
-      <div className={styles.inputarea}>
-        {/* {torv ? */}
-        <div id="textfield">
-          <input
-            className={styles.input}
-            type="text"
-            id="input"
-            name="input-text"
-            placeholder="Input your text here"
-            value={keywords}
-            onChange={onTBChange}
-          />
+    <div className={styles.total}>
+      {/* <div className={styles.sentiment}>Current Sentiment: </div> */}
+      <main className={styles.main}>
+        <Head>
+          <title>Co:herent - Main</title>
+        </Head>
+        <h1 className={styles.header}>co:herent</h1>
+        {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
+        <div className={styles.messages}>
+          <ul className={styles.ul}>
+            {lst.length > 0 &&
+              lst.map((item) => {
+                if (item.side == "right") {
+                  return (
+                    <div className={styles.leftmessage} key={item.id}>
+                      <button 
+                      className={styles.lefttext}
+                      // onClick="LEONS FUNCTION GOES HERE"
+                      >
+                        {item.content}
+                      </button>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className={styles.rightmessage} key={item.id}>
+                      <button className={styles.righttext}>
+                        {item.content}
+                      </button>
+                    </div>
+                  );
+                }
+              })}
+          </ul>
         </div>
-        {/* //   :
+        <div className={styles.inputarea}>
+          {/* {torv ? */}
+          <div id="textfield">
+            <input
+              className={styles.input}
+              type="text"
+              id="input"
+              name="input-text"
+              placeholder="Input your text here"
+              value={keywords}
+              onChange={onTBChange}
+            />
+          </div>
+          {/* //   :
         //   <div id="voicefield">
         //     <input
         //       className={styles.input}
@@ -176,37 +194,50 @@ export default function Main() {
         //   </div>
         // } */}
 
-        <input
-          className={styles.button}
-          type="image"
-          src="/images/microphone.svg"
-          onClick={/* submit */() => { handleAdd(); resetTranscript(); setTorv(!torv); }}
-          disabled={transcript == "" && keywords == ""}
-        />
-        <input
-          className={styles.button}
-          type="image"
-          src="/images/microphone.svg"
-          onClick={SpeechRecognition.startListening}
-          disabled={torv}
-        />
-        <button>Send</button>
-      </div>
+          <input
+            className={styles.button}
+            type="image"
+            src="/images/submit.png"
+            onClick={
+              /* submit */ () => {
+                handleAdd();
+                resetTranscript();
+                setTorv(!torv);
+              }
+            }
+            disabled={transcript == "" && keywords == ""}
+          />
+          <input
+            className={styles.button}
+            type="image"
+            src="/images/microphone.svg"
+            onClick={SpeechRecognition.startListening}
+            disabled={torv}
+          />
+        </div>
 
-      <div className={styles.sentence_gen}>
-        <ul className={styles.sentence_gen_list}>
-          {sentences.length > 0 ? (
-            sentences.map((sentence) => (
-              <li className={styles.sentence_gen_item} key={sentence} onClick={() => { setKeywords(sentence); setTorv(true); }}>
-                <a className={styles.sentence_gen_item_a}>{sentence}</a>
+        <div className={styles.sentence_gen}>
+          <ul className={styles.sentence_gen_list}>
+            {sentences.length > 0 ? (
+              sentences.map((sentence) => (
+                <li
+                  className={styles.sentence_gen_item}
+                  key={sentence}
+                  onClick={() => {
+                    setKeywords(sentence);
+                    setTorv(true);
+                  }}>
+                  <a className={styles.sentence_gen_item_a}>{sentence}</a>
+                </li>
+              ))
+            ) : (
+              <li className={styles.sentence_gen_item}>
+                <a className={styles.sentence_gen_no_gens}>. . .</a>
               </li>
-            ))
-          ) : (
-            <li className={styles.sentence_gen_item}><a className={styles.sentence_gen_no_gens}>. . .</a></li>
-          )}
-        </ul>
-
-      </div>
-    </main>
+            )}
+          </ul>
+        </div>
+      </main>
+    </div>
   );
 }
