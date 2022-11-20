@@ -95,15 +95,15 @@ export default function Main() {
     const newLst = lst;
 
     if (!torv) {
-      newLst.push({'side':'right', 'content': keywords});
+      newLst.push({ 'side': 'right', 'content': keywords });
     } else {
-      newLst.push({'side': 'left', 'content': keywords});
+      newLst.push({ 'side': 'left', 'content': keywords });
       setPrevmsg(keywords)
     }
 
     if (newLst.length > 1) {
       let tempstr = '';
-      for (let i = newLst.length-2; i >=0 && i >= newLst.length-5; i--) {
+      for (let i = newLst.length - 2; i >= 0 && i >= newLst.length - 5; i--) {
         tempstr = newLst[i].content + ' ' + tempstr;
       }
       setConvstr(tempstr)
@@ -146,26 +146,26 @@ export default function Main() {
       <div className={styles.messages}>
         <ul>{lst.length > 0 && lst.map((item) => {
           if (item.side == 'left') {
-            return (<div className={styles.leftmessage} key={item.id}><p className={styles.lefttext}>{item.content}</p></div>)
+            return (<div className={styles.leftmessage} key={item.id} onClick={() => speak({ text: item.content })}><p className={styles.lefttext}>{item.content}</p></div>)
           } else {
-            return (<div className={styles.rightmessage} key={item.id}><p className={styles.righttext}>{item.content}</p></div>)
+            return (<div className={styles.rightmessage} key={item.id} onClick={() => speak({ text: item.content })}><p className={styles.righttext}>{item.content}</p></div>)
           }
-          
+
         })}</ul>
       </div>
       <div className={styles.inputarea}>
         {/* {torv ? */}
-          <div id="textfield">
-            <input
-              className={styles.input}
-              type="text"
-              id="input"
-              name="input-text"
-              placeholder="Input your text here"
-              value={keywords}
-              onChange={onTBChange}
-            />
-          </div>
+        <div id="textfield">
+          <input
+            className={styles.input}
+            type="text"
+            id="input"
+            name="input-text"
+            placeholder="Input your text here"
+            value={keywords}
+            onChange={onTBChange}
+          />
+        </div>
         {/* //   :
         //   <div id="voicefield">
         //     <input
@@ -194,17 +194,17 @@ export default function Main() {
       </div>
 
       <div className={styles.sentence_gen}>
-          <ul className={styles.sentence_gen_list}>
-            {sentences.length > 0 ? (
-              sentences.map((sentence) => (
-                <li className={styles.sentence_gen_item} key={sentence} onClick={() => {setKeywords(sentence); setTorv(true);}}>
-                  <a className={styles.sentence_gen_item_a}>{sentence}</a>
-                </li>
-              ))
-            ): (
-              <li className={styles.sentence_gen_item}><a className={styles.sentence_gen_no_gens}>. . .</a></li>
-            )}
-          </ul>
+        <ul className={styles.sentence_gen_list}>
+          {sentences.length > 0 ? (
+            sentences.map((sentence) => (
+              <li className={styles.sentence_gen_item} key={sentence} onClick={() => { setKeywords(sentence); setTorv(true); }}>
+                <a className={styles.sentence_gen_item_a}>{sentence}</a>
+              </li>
+            ))
+          ) : (
+            <li className={styles.sentence_gen_item}><a className={styles.sentence_gen_no_gens}>. . .</a></li>
+          )}
+        </ul>
 
       </div>
     </main>
