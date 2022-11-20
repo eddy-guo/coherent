@@ -15,13 +15,19 @@ export default function Main() {
   const [torv, setTorv] = useState(true);
   const [lst, setLst] = React.useState([]);
 
-  const eddy = 'woZwya6D'
-  const amey = 'Zxk7YsZ3LHyDt'
-  const leon = 'TB5DX1F2j'
-  const leon2 = 'WKHlMbGrAm'
+  const eddy = "woZwya6D";
+  const amey = "Zxk7YsZ3LHyDt";
+  const leon = "TB5DX1F2j";
+  const leon2 = "WKHlMbGrAm";
 
   const cohere = require("cohere-ai");
   cohere.init(eddy + leon + amey + leon2);
+  
+  const router = useRouter();
+
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
 
   const onTBChange = (e) => {
     const { value } = e.target;
@@ -70,6 +76,21 @@ export default function Main() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function populate(string, index) {
+    if (index % 2 == 0) {
+      return (
+        <div className={styles.rightmessage}>
+          <button className={styles.righttext}>{string}</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.leftmessage}>
+          <button className={styles.lefttext}>{string}</button>
+        </div>
+      );
+    }
+  }
   return (
     <main className={styles.main}>
       <Head>
@@ -114,6 +135,7 @@ export default function Main() {
           onClick={SpeechRecognition.startListening}
           disabled={torv}
         />
+        <button>Send</button>
       </div>
 
       <div>
