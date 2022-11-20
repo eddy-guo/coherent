@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 import styles from "../styles/Main.module.css";
 // import ChatBoxes from "./chatboxes";
 import * as cohere_functions from "../scripts/cohere_functions.js";
@@ -143,7 +143,7 @@ export default function Main() {
         <Head>
           <title>co:herent - Main</title>
         </Head>
-        <h1 className={styles.header}>co:herent</h1>
+        <h1 className={styles.header}><Link href="/">co:herent</Link></h1>
         {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
         <div className={styles.messages}>
           <ul className={styles.ul}>

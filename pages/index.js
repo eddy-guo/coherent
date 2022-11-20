@@ -70,10 +70,10 @@ export default function Home() {
         <div className={styles.header}>
           <Link className={styles.image} href="/">
             <Image
-              src="/images/header-img.png"
+              src="/images/header-img.svg"
               alt="logo"
-              width="100"
-              height="100"
+              width="256"
+              height="60"
             />
           </Link>
           <ul className={styles.headertext}>
@@ -108,7 +108,6 @@ export default function Home() {
             </li>
           </ul>
         </div>
-        <span className={styles.welcome}>WELCOME TO CO:HERENT</span>
         <div className={styles.heading}>
           <h1 className={styles.title}>
             Bringing <span className={styles.highlight}>accessibility</span> to{" "}

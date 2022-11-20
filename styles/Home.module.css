@@ -1,3 +1,7 @@
+.container {
+  background-color: #f8f0e3;
+}
+
 .main {
   min-height: 100vh;
   flex: 1;
@@ -10,13 +14,14 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: black;
-  color: white;
+  background-color: #f8f0e3;
+  color: black;
   font-size: 15px;
+  font-family: "Quicksand";
 }
 
 .headertext {
-  margin: 0;
+  margin-top: 25px;
   list-style-type: none;
   text-align: right;
   padding-left: 20px;
@@ -30,20 +35,14 @@
 .headertext > li > a:visited {
   font-size: 16px;
   text-decoration: none;
-  color: white;
+  color: black;
 }
 .headertext > li > a:hover {
   text-decoration: underline;
 }
 
-.welcome {
-  margin-top: 20px;
-  font-family: "Quicksand";
-  font-size: 20px;
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-underline-offset: 0.25em;
-  text-decoration-thickness: 0.1em;
+.image {
+  margin: 20px 0px 0px 20px;
 }
 
 .heading {
@@ -54,12 +53,12 @@
   font-size: 100px;
   width: 1000px;
   text-align: center;
-  margin: 50px 0px;
+  margin: 100px 0px 50px 0px;
   line-height: 1.1;
 }
 
 .highlight {
-  color: #EC7CDB;
+  color: #4B0082;
 }
 
 .description {
@@ -71,15 +70,16 @@
 }
 
 .continue {
-  background-color: #e1ecf4;
+  background-color: #F5F5F5;
   border-radius: 3px;
-  border: 1px solid #7aa7c7;
+  border: solid grey 2px;
   box-shadow: rgba(255, 255, 255, 0.7) 0 1px 0 0 inset;
   box-sizing: border-box;
   color: black;
   cursor: pointer;
   display: inline-block;
   font-size: 20px;
+  font-family: "Quicksand";
   line-height: 1.15385;
   margin-top: 50px;
   outline: none;
@@ -96,8 +96,8 @@
 
 .continue:hover,
 .continue:focus {
-  background-color: #b3d3ea;
-  color: black;
+  background-color: #DCDCDC;
+  border: solid black 2px;
 }
 
 .continue:focus {
@@ -105,7 +105,7 @@
 }
 
 .continue:active {
-  background-color: #6694b8;
+  background-color: #C0C0C0;
   box-shadow: none;
   color: black;
 }
