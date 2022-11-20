@@ -1,6 +1,6 @@
 .main {
-  width: 400px;
-  height: 600px;
+  width: 70%;
+  height: 100vh;
   margin: auto;
   position: relative;
   align-items: center;
@@ -18,7 +18,9 @@
     width: 400px;
     display: flex;
     flex-direction: column;
+    height: 80vh;
 }
+
 
 .leftmessage {
     align-self: start;
@@ -49,7 +51,61 @@
 }
 
 .input {
+  align-self: flex-end;
   background-color: white;
-  width: 300px;
+  /* width: 300px;
+  color: black; */
+
+  width: 80ch;
+  padding: 15px 15px;
+  border-radius: 10px;
+  border: 2px solid gray;
+  font-size: 1.25rem;
   color: black;
+  font-family: "Nunito", sans-serif;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+
+.sentence_gen {
+  margin-top: 20px;
+  width: 80%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+}
+.sentence_gen_list {
+
+  top: calc(100% + 10px);
+  width: 100%;
+  padding: 5px 15px;
+  margin: 0;
+  list-style: none;
+  border: 2px solid black;
+  border-radius: 10px;
+  z-index: 100;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+}
+
+.sentence_gen_item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.sentence_gen_item_a {
+  display: block;
+  text-decoration: none;
+  color: gray;
+  font-weight: 12;
+  transition: all 0.3s ease;
+  width: 100%;
+  padding: 10px 0;
+
+}
+
+.sentence_gen_item_a:hover {
+  color: black;
+  cursor: pointer;
 }

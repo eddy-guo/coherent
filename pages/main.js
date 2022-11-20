@@ -80,6 +80,9 @@ export default function Main() {
       </Head>
       <h1 className={styles.header}>Co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
+      <div className={styles.messages}>
+        <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
+      </div>
       <div className={styles.inputarea}>
         <input
           className={styles.input}
@@ -98,16 +101,16 @@ export default function Main() {
         />
       </div>
 
-      <div>
-          <ul>
+      <div className={styles.sentence_gen}>
+          <ul className={styles.sentence_gen_list}>
             {sentences.length > 0 ? (
               sentences.map((sentence) => (
-                <li key={sentence}>
-                  <p>{sentence}</p>
+                <li className={styles.sentence_gen_item} key={sentence} onClick={() => setKeywords(sentence)}>
+                  <a className={styles.sentence_gen_item_a}>{sentence}</a>
                 </li>
               ))
             ): (
-              <li><p>No results/loading</p></li>
+              <li className="sentence-gen-item"><p>No results/loading</p></li>
             )}
           </ul>
 
