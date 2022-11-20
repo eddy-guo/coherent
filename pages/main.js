@@ -12,16 +12,17 @@ import SpeechRecognition, {
 export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]);
-  const [prev_transcript, setPrevTranscript] = useState("");
+  const [torv, setTorv] = useState(true);
+  const [lst, setLst] = React.useState([]);
 
-  const eddy = 'woZwya6D'
-  const amey = 'Zxk7YsZ3LHyDt'
-  const leon = 'TB5DX1F2j'
-  const leon2 = 'WKHlMbGrAm'
+  const eddy = "woZwya6D";
+  const amey = "Zxk7YsZ3LHyDt";
+  const leon = "TB5DX1F2j";
+  const leon2 = "WKHlMbGrAm";
 
   const cohere = require("cohere-ai");
-  cohere.init(eddy+leon+amey+leon2);
-
+  cohere.init(eddy + leon + amey + leon2);
+  
   const router = useRouter();
 
   const refreshData = () => {
@@ -34,6 +35,7 @@ export default function Main() {
     setKeywords(value);
     //console.log(value);
   };
+
   const {
     transcript,
     listening,
@@ -59,20 +61,36 @@ export default function Main() {
     }
   }, [keywords]);
 
-  React.useEffect(() => {
-    if (transcript != prev_transcript) {
-      setKeywords(transcript);
-      setPrevTranscript(transcript);
-    }
-  }, [transcript]);
+  const handleAdd = () => {
+    const newLst = lst;
+
+    newLst.push(keywords + transcript);
+
+    setLst(newLst);
+    setKeywords("");
+  };
 
   useEffect(() => {
-    const support = () => {};
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser does not support speech recognition.</span>;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function populate(string, index) {
+    if (index % 2 == 0) {
+      return (
+        <div className={styles.rightmessage}>
+          <button className={styles.righttext}>{string}</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.leftmessage}>
+          <button className={styles.lefttext}>{string}</button>
+        </div>
+      );
+    }
+  }
   return (
     <main className={styles.main}>
       <Head>
@@ -80,25 +98,44 @@ export default function Main() {
       </Head>
       <h1 className={styles.header}>Co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
-      <div className={styles.messages}>
-        <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
-      </div>
+      <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
       <div className={styles.inputarea}>
+        {torv ?
+          <div id="textfield">
+            <input
+              className={styles.input}
+              type="text"
+              id="input"
+              name="input-text"
+              placeholder="Input your text here"
+              value={keywords}
+              onChange={onTBChange}
+            />
+          </div>
+          :
+          <div id="voicefield">
+            <input
+              className={styles.input}
+              placeholder="Press the mic to speak"
+              value={transcript}
+            />
+          </div>
+        }
         <input
-          className={styles.input}
-          type="text"
-          id="input"
-          name="input-text"
-          placeholder="Input your text here"
-          value={keywords}
-          onChange={onTBChange}
+          className={styles.button}
+          type="image"
+          src="/images/microphone.svg"
+          onClick={/* submit */() => { handleAdd(); resetTranscript(); setTorv(!torv); }}
+          disabled={transcript == "" && keywords == ""}
         />
         <input
           className={styles.button}
           type="image"
           src="/images/microphone.svg"
           onClick={SpeechRecognition.startListening}
+          disabled={torv}
         />
+        <button>Send</button>
       </div>
 
       <div className={styles.sentence_gen}>
