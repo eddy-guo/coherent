@@ -102,9 +102,43 @@ export async function extract_keywords(previous_messages, cohere) {
 
 }
 
+
+export async function get_sentiment(message, cohere) {
+    let examples = [
+        {"text":"I had a great day", "label": '😁'},
+        {"text":"I am happy", "label": '😁'},
+        {"text":"I'm so sad", "label": '😢'},
+        {"text": "I'm feeling angry today", "label": '😡'},
+        {"text": "I can't believe it!", "label":'😮'},
+        {"text": "Can you believe it?", "label": '😮'},
+        {"text": "hahahahahaha haha", "label": '😂'},
+        {"text": "That's hilarious", "label": '😂'},
+        {"text": "That's so funny", "label": '😂'},
+        {"text": "I am sad today", "label": '😢'},
+        {"text": "Today was a bad day", "label": '😢'},
+        {"text": "Sorry", "label": '😢'},
+        {"text": "I'm sorry, but", "label": '😢'},
+        {"text": "Got my paycheck today", "label":'😁'},
+        {"text": "Nice!", "label": '😁'},
+        {"text": "You can't be serious!", "label":'😮'},
+        {"text": "I'm seriously pissed off right now...", "label": '😡'},
+        {"text": "Shut up!", "label":'😡'},
+        {"text": "nice joke!", "label": '😂'}
+    ];
+
+
+
+    let input = [message];
+
+    const response = await cohere.classify({inputs: input, examples: examples});
+    console.log(response.body.classifications?.[0].confidence)
+    console.log(message)
+    return response.body.classifications?.[0].prediction;
+}
+
 // emoji list (5)
-// &#128514; laughing
-// &#128513; happy
-// &#128545; angry
-// &#128546; sad
-// &#128558; surprised
+// &#128514; laughing 😂
+// &#128513; happy 😁
+// &#128545; angry 😡
+// &#128546; sad 😢
+// &#128558; surprised 😮

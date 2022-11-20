@@ -18,6 +18,9 @@ export default function Main() {
   const [conv_keywords, setConv_keywords] = useState("");
   const [convstr, setConvstr] = useState("");
   const [prevmsg, setPrevmsg] = useState("");
+  const [myprevmsg, setMyprevmsg] = useState("");
+  const [leftEmotion, setLeftEmotion] = useState("😃");
+  const [rightEmotion, setRightEmotion] = useState("😃");
 
   const { speak } = useSpeechSynthesis();
 
@@ -72,6 +75,8 @@ export default function Main() {
     const timer = setTimeout(() => {
       if (keywords != "") {
         update_cohere();
+      } else {
+        setSentences([])
       }
     }, 500);
     return () => clearTimeout(timer);
@@ -88,13 +93,33 @@ export default function Main() {
     }
   }, [convstr]);
 
+  React.useEffect(() => {
+    async function findmyemotion() {
+      const response = await cohere_functions.get_sentiment(myprevmsg, cohere);
+      setLeftEmotion(response);
+      console.log(response);
+    }
+
+    if (myprevmsg != '') findmyemotion();
+  }, [myprevmsg]);
+
+  React.useEffect(() => {
+    async function findmyemotion() {
+      const response = await cohere_functions.get_sentiment(prevmsg, cohere);
+      setRightEmotion(response)
+      console.log(response);
+    }
+    if (prevmsg != '') findmyemotion();
+  }, [prevmsg]);
+
   const handleAdd = () => {
     const newLst = lst;
-
+    console.log(torv)
     if (torv) {
-      newLst.push({ side: "right", content: keywords });
-    } else {
       newLst.push({ side: "left", content: keywords });
+      setMyprevmsg(keywords);
+    } else {
+      newLst.push({ side: "right", content: keywords });
       setPrevmsg(keywords);
     }
 
@@ -142,14 +167,19 @@ export default function Main() {
       <main className={styles.main}>
         <Head>
           <title>co:herent - Main</title>
+          
         </Head>
-        <h1 className={styles.header}><Link href="/">co:herent</Link></h1>
+        <div className={styles.header_row}>
+          <h1 className={styles.leftemotion}>{leftEmotion}</h1>
+          <h1 className={styles.header}><Link href="/">co:herent</Link></h1>
+          <h1 className={styles.rightemotion}>{rightEmotion}</h1>
+        </div>
         {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
         <div className={styles.messages}>
           <ul className={styles.ul}>
             {lst.length > 0 &&
               lst.map((item) => {
-                if (item.side == "right") {
+                if (item.side == "left") {
                   return (
                     <div className={styles.leftmessage} key={item.id}>
                       <button
