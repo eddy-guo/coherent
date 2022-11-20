@@ -16,6 +16,7 @@
 
 .messages {
     width: 400px;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
 }
@@ -38,8 +39,6 @@
 .inputarea {
   display: flex;
   flex-direction: row;
-  position: absolute;
-  bottom: 0;
 }
 
 .button {

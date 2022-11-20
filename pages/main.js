@@ -14,13 +14,13 @@ export default function Main() {
   const [sentences, setSentences] = useState([]);
   const [prev_transcript, setPrevTranscript] = useState("");
 
-  const eddy = 'woZwya6D'
-  const amey = 'Zxk7YsZ3LHyDt'
-  const leon = 'TB5DX1F2j'
-  const leon2 = 'WKHlMbGrAm'
+  const eddy = "woZwya6D";
+  const amey = "Zxk7YsZ3LHyDt";
+  const leon = "TB5DX1F2j";
+  const leon2 = "WKHlMbGrAm";
 
   const cohere = require("cohere-ai");
-  cohere.init(eddy+leon+amey+leon2);
+  cohere.init(eddy + leon + amey + leon2);
 
   const router = useRouter();
 
@@ -73,6 +73,21 @@ export default function Main() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  function populate(string, index) {
+    if (index % 2 == 0) {
+      return (
+        <div className={styles.rightmessage}>
+          <button className={styles.righttext}>{string}</button>
+        </div>
+      );
+    } else {
+      return (
+        <div className={styles.leftmessage}>
+          <button className={styles.lefttext}>{string}</button>
+        </div>
+      );
+    }
+  }
   return (
     <main className={styles.main}>
       <Head>
@@ -96,6 +111,7 @@ export default function Main() {
           src="/images/microphone.svg"
           onClick={SpeechRecognition.startListening}
         />
+        <button>Send</button>
       </div>
     </main>
   );
