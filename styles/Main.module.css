@@ -40,8 +40,6 @@
 .inputarea {
   display: flex;
   flex-direction: row;
-  position: absolute;
-  bottom: 0;
 }
 
 .button {
@@ -108,4 +106,15 @@
 .sentence_gen_item_a:hover {
   color: black;
   cursor: pointer;
+}
+
+.sentence_gen_no_gens {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color: gray;
+  font-weight: 12;
+  transition: all 0.3s ease;
+  width: 100%;
+  padding: 10px 0;
 }

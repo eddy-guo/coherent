@@ -96,9 +96,11 @@ export default function Main() {
       <Head>
         <title>Co:herent - Main</title>
       </Head>
-      <h1 className={styles.header}>Co:herent</h1>
+      <h1 className={styles.header}>co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
-      <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
+      <div className={styles.messages}>
+        <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
+      </div>
       <div className={styles.inputarea}>
         {torv ?
           <div id="textfield">
@@ -147,7 +149,7 @@ export default function Main() {
                 </li>
               ))
             ): (
-              <li className="sentence-gen-item"><p>No results/loading</p></li>
+              <li className={styles.sentence_gen_item}><a className={styles.sentence_gen_no_gens}>. . .</a></li>
             )}
           </ul>
 
