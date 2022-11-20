@@ -10,12 +10,12 @@ export async function create_prompts(input_words, prev_message, conv_keywords, c
         custom_prompt1 = `Respond to the sentence '${prev_message}`
 
         if (input_words != '') {
-            custom_prompt1 += `' given the words '${input_words.trim().replace(' ', ', ')}`
+            custom_prompt1 += `' using the words '${input_words.trim()}',`
         }
         if (conv_keywords != '') {
-            custom_prompt1 += `, ${conv_keywords.trim()}`
+            custom_prompt1 += ` relating to '${conv_keywords.trim()}'`
         }
-        custom_prompt1 += '\'.'
+        custom_prompt1 += '.'
     } else {
         custom_prompt1 = `Create a sentence using the words '${input_words.trim().replace(' ', ', ')}'.`
     }
@@ -42,7 +42,7 @@ async function generate_response(prompt, generations, cohere) {
         prompt: prompt,
         model: "command-xlarge-20221108",
         num_generations: generations,
-        temperature: 1.5,
+        temperature: 0.8,
         frequency_penalty: 0.0,
     });
 
