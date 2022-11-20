@@ -115,6 +115,21 @@ export default function Main() {
           disabled={torv}
         />
       </div>
+
+      <div>
+          <ul>
+            {sentences.length > 0 ? (
+              sentences.map((sentence) => (
+                <li key={sentence}>
+                  <p>{sentence}</p>
+                </li>
+              ))
+            ): (
+              <li><p>No results/loading</p></li>
+            )}
+          </ul>
+
+      </div>
     </main>
   );
 }
