@@ -19,7 +19,7 @@ export default function Home() {
         href="https://fonts.googleapis.com/css?family=Quicksand"
         rel="stylesheet"></link>
       <Head>
-        <title>Co:herent</title>
+        <title>co:herent</title>
         <link rel="icon" href="/images/coherent-favicon.png" />
         {/* Meta Tags */}
         {/* Primary */}
