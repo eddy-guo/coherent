@@ -102,7 +102,7 @@ export default function Home() {
               </a>
             </li>
             <li>
-              <a href="https://devpost.com/" target="_blank" rel="noreferrer">
+              <a href="https://devpost.com/software/co-herent" target="_blank" rel="noreferrer">
                 Devpost
               </a>
             </li>

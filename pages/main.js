@@ -22,7 +22,7 @@ export default function Main() {
 
   const cohere = require("cohere-ai");
   cohere.init(eddy + leon + amey + leon2);
-  
+
   const router = useRouter();
 
   const refreshData = () => {
@@ -33,7 +33,7 @@ export default function Main() {
     const { value } = e.target;
 
     setKeywords(value);
-    setTorv(true)
+    setTorv(true);
     //console.log(value);
   };
 
@@ -45,10 +45,9 @@ export default function Main() {
   } = useSpeechRecognition();
 
   React.useEffect(() => {
-    setKeywords(transcript)
-    setTorv(false)
-
-  }, [transcript])
+    setKeywords(transcript);
+    setTorv(false);
+  }, [transcript]);
 
   React.useEffect(() => {
     async function update_cohere() {
@@ -72,14 +71,14 @@ export default function Main() {
     const newLst = lst;
 
     if (torv) {
-      newLst.push({'side':'right', 'content': keywords});
+      newLst.push({ side: "right", content: keywords });
     } else {
-      newLst.push({'side': 'left', 'content': keywords});
+      newLst.push({ side: "left", content: keywords });
     }
 
     setLst(newLst);
     setKeywords("");
-    setSentences([])
+    setSentences([]);
   };
 
   useEffect(() => {
@@ -104,24 +103,43 @@ export default function Main() {
     }
   }
   return (
-    <main className={styles.main}>
-      <Head>
-        <title>Co:herent - Main</title>
-      </Head>
-      <h1 className={styles.header}>co:herent</h1>
-      {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
-      <div className={styles.messages}>
-        <ul>{lst.length > 0 && lst.map((item) => {
-          if (item.side == 'right') {
-            return (<div className={styles.leftmessage} key={item.id}><p className={styles.lefttext}>{item.content}</p></div>)
-          } else {
-            return (<div className={styles.rightmessage} key={item.id}><p className={styles.righttext}>{item.content}</p></div>)
-          }
-          
-        })}</ul>
-      </div>
-      <div className={styles.inputarea}>
-        {/* {torv ? */}
+    <div className={styles.total}>
+      {/* <div className={styles.sentiment}>Current Sentiment: </div> */}
+      <main className={styles.main}>
+        <Head>
+          <title>Co:herent - Main</title>
+        </Head>
+        <h1 className={styles.header}>co:herent</h1>
+        {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
+        <div className={styles.messages}>
+          <ul className={styles.ul}>
+            {lst.length > 0 &&
+              lst.map((item) => {
+                if (item.side == "right") {
+                  return (
+                    <div className={styles.leftmessage} key={item.id}>
+                      <button 
+                      className={styles.lefttext}
+                      // onClick="LEONS FUNCTION GOES HERE"
+                      >
+                        {item.content}
+                      </button>
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div className={styles.rightmessage} key={item.id}>
+                      <button className={styles.righttext}>
+                        {item.content}
+                      </button>
+                    </div>
+                  );
+                }
+              })}
+          </ul>
+        </div>
+        <div className={styles.inputarea}>
+          {/* {torv ? */}
           <div id="textfield">
             <input
               className={styles.input}
@@ -133,7 +151,7 @@ export default function Main() {
               onChange={onTBChange}
             />
           </div>
-        {/* //   :
+          {/* //   :
         //   <div id="voicefield">
         //     <input
         //       className={styles.input}
@@ -143,37 +161,50 @@ export default function Main() {
         //   </div>
         // } */}
 
-        <input
-          className={styles.button}
-          type="image"
-          src="/images/microphone.svg"
-          onClick={/* submit */() => { handleAdd(); resetTranscript(); setTorv(!torv); }}
-          disabled={transcript == "" && keywords == ""}
-        />
-        <input
-          className={styles.button}
-          type="image"
-          src="/images/microphone.svg"
-          onClick={SpeechRecognition.startListening}
-          disabled={torv}
-        />
-        <button>Send</button>
-      </div>
+          <input
+            className={styles.button}
+            type="image"
+            src="/images/submit.png"
+            onClick={
+              /* submit */ () => {
+                handleAdd();
+                resetTranscript();
+                setTorv(!torv);
+              }
+            }
+            disabled={transcript == "" && keywords == ""}
+          />
+          <input
+            className={styles.button}
+            type="image"
+            src="/images/microphone.svg"
+            onClick={SpeechRecognition.startListening}
+            disabled={torv}
+          />
+        </div>
 
-      <div className={styles.sentence_gen}>
+        <div className={styles.sentence_gen}>
           <ul className={styles.sentence_gen_list}>
             {sentences.length > 0 ? (
               sentences.map((sentence) => (
-                <li className={styles.sentence_gen_item} key={sentence} onClick={() => {setKeywords(sentence); setTorv(true);}}>
+                <li
+                  className={styles.sentence_gen_item}
+                  key={sentence}
+                  onClick={() => {
+                    setKeywords(sentence);
+                    setTorv(true);
+                  }}>
                   <a className={styles.sentence_gen_item_a}>{sentence}</a>
                 </li>
               ))
-            ): (
-              <li className={styles.sentence_gen_item}><a className={styles.sentence_gen_no_gens}>. . .</a></li>
+            ) : (
+              <li className={styles.sentence_gen_item}>
+                <a className={styles.sentence_gen_no_gens}>. . .</a>
+              </li>
             )}
           </ul>
-
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
   );
 }

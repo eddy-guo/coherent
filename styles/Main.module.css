@@ -1,3 +1,8 @@
+.total {
+  display: flex;
+  flex-direction: row;
+}
+
 .main {
   width: 70%;
   height: 100vh;
@@ -14,41 +19,41 @@
   padding: 20px;
 }
 
+.ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 .messages {
-    width: 80ch;
-
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
+  width: 80ch;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
 }
 
-
-.leftmessage {
-    align-self: start;
-}
-
+.leftmessage,
 .rightmessage {
-    align-self: end;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .lefttext {
+  align-self: start;
   text-align: left;
-  margin: 5px;
-  /* border-radius: 25px;
-  background: #73AD21; */
-  padding: 5px;
   border-radius: 25px;
-  background: #73AD21;
+  background: #73ad21;
   padding: 10px;
   width: 200px;
 }
 
 .righttext {
+  align-self: end;
   text-align: right;
-  margin: 5px;
-  /* border-radius: 25px;
-  background: #73AD21; */
-  padding: 5px;
+  border-radius: 25px;
+  /* background: #73AD21; */
+  padding: 10px;
+  width: 200px;
 }
 
 .inputarea {
@@ -60,6 +65,15 @@
   width: 30px;
   height: 30px;
   border: solid black 1px;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #6694b8;
+}
+
+.button:active {
+  background-color: #366284;
 }
 
 .input {
@@ -79,7 +93,6 @@
   transition: all 0.3s ease;
 }
 
-
 .sentence_gen {
   margin-top: 20px;
   width: 80%;
@@ -88,7 +101,6 @@
   flex-direction: column;
 }
 .sentence_gen_list {
-
   top: calc(100% + 10px);
   width: 100%;
   padding: 5px 15px;
@@ -99,7 +111,6 @@
   z-index: 100;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
 }
 
 .sentence_gen_item:not(:last-child) {
@@ -114,7 +125,6 @@
   transition: all 0.3s ease;
   width: 100%;
   padding: 10px 0;
-
 }
 
 .sentence_gen_item_a:hover {
