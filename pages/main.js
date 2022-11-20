@@ -151,9 +151,9 @@ export default function Main() {
                 if (item.side == "right") {
                   return (
                     <div className={styles.leftmessage} key={item.id}>
-                      <button 
-                      className={styles.lefttext}
-                      // onClick="LEONS FUNCTION GOES HERE"
+                      <button
+                        className={styles.lefttext}
+                        onClick={() => speak({ text: item.content })}
                       >
                         {item.content}
                       </button>
