@@ -13,7 +13,7 @@ export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]);
   const [torv, setTorv] = useState(true);
-  const [prev_transcript, setPrevTranscript] = useState("");
+  const [lst, setLst] = React.useState([]);
 
   const eddy = 'woZwya6D'
   const amey = 'Zxk7YsZ3LHyDt'
@@ -23,18 +23,13 @@ export default function Main() {
   const cohere = require("cohere-ai");
   cohere.init(eddy + leon + amey + leon2);
 
-  const router = useRouter();
-
-  const refreshData = () => {
-    router.replace(router.asPath);
-  };
-
   const onTBChange = (e) => {
     const { value } = e.target;
 
     setKeywords(value);
     //console.log(value);
   };
+
   const {
     transcript,
     listening,
@@ -60,15 +55,16 @@ export default function Main() {
     }
   }, [keywords]);
 
-  React.useEffect(() => {
-    if (transcript != prev_transcript) {
-      setKeywords(transcript);
-      setPrevTranscript(transcript);
-    }
-  }, [transcript]);
+  const handleAdd = () => {
+    const newLst = lst;
+
+    newLst.push(keywords + transcript);
+
+    setLst(newLst);
+    setKeywords("");
+  };
 
   useEffect(() => {
-    const support = () => { };
     if (!browserSupportsSpeechRecognition) {
       return <span>Browser does not support speech recognition.</span>;
     }
@@ -81,6 +77,7 @@ export default function Main() {
       </Head>
       <h1 className={styles.header}>Co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
+      <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
       <div className={styles.inputarea}>
         {torv ?
           <div id="textfield">
@@ -98,7 +95,6 @@ export default function Main() {
           <div id="voicefield">
             <input
               className={styles.input}
-              type="text"
               placeholder="Press the mic to speak"
               value={transcript}
             />
@@ -108,7 +104,8 @@ export default function Main() {
           className={styles.button}
           type="image"
           src="/images/microphone.svg"
-          onClick={/* submit */() => { SpeechRecognition.startListening; setTorv(!torv); }}
+          onClick={/* submit */() => { handleAdd(); resetTranscript(); setTorv(!torv); }}
+          disabled={transcript == "" && keywords == ""}
         />
         <input
           className={styles.button}
