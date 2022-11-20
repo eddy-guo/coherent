@@ -16,6 +16,7 @@
 
 .messages {
     width: 80ch;
+
     display: flex;
     flex-direction: column;
     height: 80vh;
