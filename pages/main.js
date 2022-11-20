@@ -8,12 +8,19 @@ import React, { useState, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 export default function Main() {
   const [keywords, setKeywords] = useState("");
-  const [sentences, setSentences] = useState([]);
+  const [sentences, setSentences] = useState([]); //generated sentences
   const [torv, setTorv] = useState(true);
   const [lst, setLst] = React.useState([]);
+  const [conv_keywords, setConv_keywords] = useState('')
+  const [convstr, setConvstr] = useState('')
+  const [prevmsg, setPrevmsg] = useState('')
+
+
+  const { speak } = useSpeechSynthesis()
 
   const eddy = "woZwya6D";
   const amey = "Zxk7YsZ3LHyDt";
@@ -52,33 +59,59 @@ export default function Main() {
   React.useEffect(() => {
     async function update_cohere() {
       console.log(keywords);
+
       const response = await cohere_functions.create_prompts(
         keywords,
-        "",
-        "",
+        prevmsg,
+        conv_keywords,
         cohere
       );
       setSentences(response);
       console.log(sentences);
     }
 
-    if (keywords != "") {
-      update_cohere();
-    }
+    const timer = setTimeout(() => {
+      if (keywords != "") {
+        update_cohere();
+      }
+    }, 500)
+    return () => clearTimeout(timer)
   }, [keywords]);
+
+  React.useEffect(() => {
+    async function convkeywordsgen() {
+      const response = await cohere_functions.extract_keywords(convstr, cohere);
+      setConv_keywords(response)
+
+    }
+
+    if (convstr != '') {
+      convkeywordsgen();
+    }
+  }, [convstr])
 
   const handleAdd = () => {
     const newLst = lst;
 
-    if (torv) {
-      newLst.push({ side: "right", content: keywords });
+    if (!torv) {
+      newLst.push({ 'side': 'right', 'content': keywords });
     } else {
-      newLst.push({ side: "left", content: keywords });
+      newLst.push({ 'side': 'left', 'content': keywords });
+      setPrevmsg(keywords)
+    }
+
+    if (newLst.length > 1) {
+      let tempstr = '';
+      for (let i = newLst.length - 2; i >= 0 && i >= newLst.length - 5; i--) {
+        tempstr = newLst[i].content + ' ' + tempstr;
+      }
+      setConvstr(tempstr)
     }
 
     setLst(newLst);
     setKeywords("");
-    setSentences([]);
+    setSentences([])
+    console.log(convstr, conv_keywords, prevmsg)
   };
 
   useEffect(() => {
