@@ -8,12 +8,15 @@ import React, { useState, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useSpeechSynthesis } from 'react-speech-kit';
 
 export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]);
   const [torv, setTorv] = useState(true);
   const [lst, setLst] = React.useState([]);
+
+  const { speak } = useSpeechSynthesis()
 
   const eddy = "woZwya6D";
   const amey = "Zxk7YsZ3LHyDt";
@@ -22,7 +25,7 @@ export default function Main() {
 
   const cohere = require("cohere-ai");
   cohere.init(eddy + leon + amey + leon2);
-  
+
   const router = useRouter();
 
   const refreshData = () => {
