@@ -54,7 +54,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 8px 12px;
+  padding: 8px 12px;
 }
 
 .lefttext {
@@ -67,19 +67,18 @@
   background: #e3ddff;
   border-radius: 10px;
   padding: 10px 15px;
-  
 }
 
 .righttext {
   align-self: end;
   text-align: right;
   font-size: 20px;
+  font-family: "Nunito", sans-serif;
   border: 2px #696969 solid;
   border-radius: 10px;
-  background: #DCDCDC;
+  background: #dcdcdc;
   color: #404040;
   padding: 10px 15px;
-
 }
 
 .inputarea {
@@ -89,7 +88,7 @@
 
 .submitbutton,
 .microphonebutton {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   width: 57px;
   height: 57px;
   border-radius: 10px;
@@ -111,13 +110,13 @@
 .submitbuttonbutton:focus,
 .microphonebutton:hover,
 .microphonebutton:focus {
-  background-color: #DCDCDC;
+  background-color: #dcdcdc;
   border: solid black 2px;
 }
 
 .submitbutton:active,
 .microphonebutton:active {
-  background-color: #C0C0C0;
+  background-color: #c0c0c0;
 }
 
 .input {
