@@ -33,6 +33,7 @@ export default function Main() {
     const { value } = e.target;
 
     setKeywords(value);
+    setTorv(true)
     //console.log(value);
   };
 
@@ -42,6 +43,12 @@ export default function Main() {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+
+  React.useEffect(() => {
+    setKeywords(transcript)
+    setTorv(false)
+
+  }, [transcript])
 
   React.useEffect(() => {
     async function update_cohere() {
@@ -64,10 +71,15 @@ export default function Main() {
   const handleAdd = () => {
     const newLst = lst;
 
-    newLst.push(keywords + transcript);
+    if (torv) {
+      newLst.push({'side':'right', 'content': keywords});
+    } else {
+      newLst.push({'side': 'left', 'content': keywords});
+    }
 
     setLst(newLst);
     setKeywords("");
+    setSentences([])
   };
 
   useEffect(() => {
@@ -99,10 +111,17 @@ export default function Main() {
       <h1 className={styles.header}>co:herent</h1>
       {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
       <div className={styles.messages}>
-        <ul>{lst.length > 0 && lst.map((item) => <li key={item.id}>{item}</li>)}</ul>
+        <ul>{lst.length > 0 && lst.map((item) => {
+          if (item.side == 'right') {
+            return (<div className={styles.leftmessage} key={item.id}><p className={styles.lefttext}>{item.content}</p></div>)
+          } else {
+            return (<div className={styles.rightmessage} key={item.id}><p className={styles.righttext}>{item.content}</p></div>)
+          }
+          
+        })}</ul>
       </div>
       <div className={styles.inputarea}>
-        {torv ?
+        {/* {torv ? */}
           <div id="textfield">
             <input
               className={styles.input}
@@ -114,15 +133,15 @@ export default function Main() {
               onChange={onTBChange}
             />
           </div>
-          :
-          <div id="voicefield">
-            <input
-              className={styles.input}
-              placeholder="Press the mic to speak"
-              value={transcript}
-            />
-          </div>
-        }
+        {/* //   :
+        //   <div id="voicefield">
+        //     <input
+        //       className={styles.input}
+        //       placeholder="Press the mic to speak"
+        //       value={transcript}
+        //     />
+        //   </div>
+        // } */}
         <input
           className={styles.button}
           type="image"
@@ -144,7 +163,7 @@ export default function Main() {
           <ul className={styles.sentence_gen_list}>
             {sentences.length > 0 ? (
               sentences.map((sentence) => (
-                <li className={styles.sentence_gen_item} key={sentence} onClick={() => setKeywords(sentence)}>
+                <li className={styles.sentence_gen_item} key={sentence} onClick={() => {setKeywords(sentence); setTorv(true);}}>
                   <a className={styles.sentence_gen_item_a}>{sentence}</a>
                 </li>
               ))
