@@ -8,19 +8,18 @@ import React, { useState, useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechSynthesis } from "react-speech-kit";
 
 export default function Main() {
   const [keywords, setKeywords] = useState("");
   const [sentences, setSentences] = useState([]); //generated sentences
   const [torv, setTorv] = useState(true);
   const [lst, setLst] = React.useState([]);
-  const [conv_keywords, setConv_keywords] = useState('')
-  const [convstr, setConvstr] = useState('')
-  const [prevmsg, setPrevmsg] = useState('')
+  const [conv_keywords, setConv_keywords] = useState("");
+  const [convstr, setConvstr] = useState("");
+  const [prevmsg, setPrevmsg] = useState("");
 
-
-  const { speak } = useSpeechSynthesis()
+  const { speak } = useSpeechSynthesis();
 
   const eddy = "woZwya6D";
   const amey = "Zxk7YsZ3LHyDt";
@@ -74,44 +73,43 @@ export default function Main() {
       if (keywords != "") {
         update_cohere();
       }
-    }, 500)
-    return () => clearTimeout(timer)
+    }, 500);
+    return () => clearTimeout(timer);
   }, [keywords]);
 
   React.useEffect(() => {
     async function convkeywordsgen() {
       const response = await cohere_functions.extract_keywords(convstr, cohere);
-      setConv_keywords(response)
-
+      setConv_keywords(response);
     }
 
-    if (convstr != '') {
+    if (convstr != "") {
       convkeywordsgen();
     }
-  }, [convstr])
+  }, [convstr]);
 
   const handleAdd = () => {
     const newLst = lst;
 
-    if (!torv) {
-      newLst.push({ 'side': 'right', 'content': keywords });
+    if (torv) {
+      newLst.push({ side: "right", content: keywords });
     } else {
-      newLst.push({ 'side': 'left', 'content': keywords });
-      setPrevmsg(keywords)
+      newLst.push({ side: "left", content: keywords });
+      setPrevmsg(keywords);
     }
 
     if (newLst.length > 1) {
-      let tempstr = '';
+      let tempstr = "";
       for (let i = newLst.length - 2; i >= 0 && i >= newLst.length - 5; i--) {
-        tempstr = newLst[i].content + ' ' + tempstr;
+        tempstr = newLst[i].content + " " + tempstr;
       }
-      setConvstr(tempstr)
+      setConvstr(tempstr);
     }
 
     setLst(newLst);
     setKeywords("");
-    setSentences([])
-    console.log(convstr, conv_keywords, prevmsg)
+    setSentences([]);
+    console.log(convstr, conv_keywords, prevmsg);
   };
 
   useEffect(() => {
@@ -137,10 +135,13 @@ export default function Main() {
   }
   return (
     <div className={styles.total}>
+      <link
+        href="https://fonts.googleapis.com/css?family=Quicksand"
+        rel="stylesheet"></link>
       {/* <div className={styles.sentiment}>Current Sentiment: </div> */}
       <main className={styles.main}>
         <Head>
-          <title>Co:herent - Main</title>
+          <title>co:herent - Main</title>
         </Head>
         <h1 className={styles.header}>co:herent</h1>
         {/* <ChatBoxes chat_messages={testing_chat_msgs} /> */}
@@ -153,8 +154,7 @@ export default function Main() {
                     <div className={styles.leftmessage} key={item.id}>
                       <button
                         className={styles.lefttext}
-                        onClick={() => speak({ text: item.content })}
-                      >
+                        onClick={() => speak({ text: item.content })}>
                         {item.content}
                       </button>
                     </div>
@@ -195,7 +195,7 @@ export default function Main() {
         // } */}
 
           <input
-            className={styles.button}
+            className={styles.submitbutton}
             type="image"
             src="/images/submit.png"
             onClick={
@@ -208,11 +208,10 @@ export default function Main() {
             disabled={transcript == "" && keywords == ""}
           />
           <input
-            className={styles.button}
+            className={styles.microphonebutton}
             type="image"
             src="/images/microphone.svg"
             onClick={SpeechRecognition.startListening}
-            disabled={torv}
           />
         </div>
 
