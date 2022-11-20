@@ -72,8 +72,8 @@ export default function Home() {
             <Image
               src="/images/header-img.png"
               alt="logo"
-              width="333"
-              height="74"
+              width="100"
+              height="100"
             />
           </Link>
           <ul className={styles.headertext}>
