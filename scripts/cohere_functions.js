@@ -101,3 +101,10 @@ export async function extract_keywords(previous_messages, cohere) {
     return out_arr.join(', ')
 
 }
+
+// emoji list (5)
+// &#128514; laughing
+// &#128513; happy
+// &#128545; angry
+// &#128546; sad
+// &#128558; surprised
